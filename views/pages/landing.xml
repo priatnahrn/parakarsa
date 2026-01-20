@@ -1,0 +1,14 @@
+<odoo>
+  <template id="landing_page">
+    <t t-call="website.layout">
+
+      <!-- TEST TAILWIND -->
+      <div class="min-h-screen flex items-center justify-center bg-gray-100">
+        <h1 class="text-6xl font-extrabold text-red-600">
+          TAILWIND BERHASIL
+        </h1>
+      </div>
+
+    </t>
+  </template>
+</odoo>
