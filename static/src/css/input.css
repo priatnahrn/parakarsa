@@ -1,1 +1,57 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap'); */
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-primary: #166534; /* Green-800 */
+  --color-primary-foreground: #ffffff;
+}
+
+@layer base {
+  :root, body, #wrapwrap {
+    /* Override Odoo Default Colors */
+    --o-color-1: #166534 !important;
+    --o-color-2: #15803d !important;
+    --o-color-3: #22c55e !important;
+    --o-color-4: #dcfce7 !important;
+    --o-color-5: #ffffff !important;
+
+    /* Override Bootstrap/Odoo Primary */
+    --primary: #166534 !important;
+    --secondary: #22c55e !important;
+    --o-component-active-bg: #166534 !important;
+    --o-component-active-color: #ffffff !important;
+  }
+  
+  /* Apply to text selection */
+  ::selection {
+    background-color: #22c55e; /* Green-500 */
+    color: white;
+  }
+  
+  body {
+    font-family: "Poppins", ui-sans-serif, system-ui, sans-serif !important;
+  }
+
+  /* Force link colors if Odoo is overriding them with higher specificity */
+  /* Force link colors if Odoo is overriding them with higher specificity */
+  a {
+      color: inherit !important;
+  }
+  
+  /* Force Odoo navbar links specifically if they exist */
+  .navbar a, .nav-link {
+    color: inherit !important;
+  }
+  
+  /* Force Sign In button styles */
+  a.btn-signin-custom {
+      background-color: #166534 !important;
+      color: #ffffff !important; 
+      border-color: #166534 !important;
+  }
+  a.btn-signin-custom:hover {
+      background-color: #14532d !important; /* darker green */
+      color: #ffffff !important;
+  }
+}

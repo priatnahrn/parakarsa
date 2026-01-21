@@ -9,11 +9,13 @@
     "data": [
         "views/pages/landing.xml",
         "views/components/navbar.xml",
+        "views/components/footer.xml",
     ],
 
     "assets": {
         "web.assets_frontend": [
-            "parakarsa/static/src/css/main.css",
+            "parakarsa/static/src/css/main.v2.min.css",
+            "parakarsa/static/src/js/navbar.js",
         ],
     },
     "application": False,

@@ -1,41 +1,568 @@
 <odoo>
   <template id="custom_header" inherit_id="website.layout" name="Custom Header">
     <xpath expr="//header" position="replace">
-      <header class="sticky top-0 z-50 bg-white shadow-sm">
-        <nav class="container mx-auto px-6 py-4">
-          <div class="flex items-center justify-between">
+      <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+      
+      <header id="parakarsa-navbar" class="sticky-top bg-white shadow-sm">
+        <style>
+          #parakarsa-navbar {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+          }
+          .custom-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+          }
+          /* Top Bar Styles */
+          .top-bar {
+            background-color: #f9fafb; /* bg-gray-50 */
+            border-bottom: 1px solid #f3f4f6; /* border-gray-100 */
+          }
+          .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+          }
+          .top-input-wrapper {
+             position: relative;
+             flex: 1;
+             max-width: 32rem; /* max-w-lg */
+             margin: 0 2rem;
+          }
+          .top-search-input {
+             width: 100%;
+             background-color: white;
+             border: 1px solid #e5e7eb;
+             border-radius: 9999px;
+             padding: 0.5rem 1rem 0.5rem 1rem;
+             padding-right: 2.5rem;
+             font-size: 0.875rem;
+             color: #374151;
+             outline: none;
+          }
+          .top-search-input:focus {
+             border-color: #166534; /* ring-primary currently mocked as border change */
+             box-shadow: 0 0 0 1px rgba(22, 101, 52, 0.5);
+          }
+          
+          /* Navbar Main Content */
+          .navbar-content {
+            height: 80px; /* h-20 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          
+          /* Navigation Links */
+          .nav-link-custom {
+            font-size: 1rem; /* text-base */
+            font-weight: 500;
+            color: #4b5563; /* text-gray-600 */
+            text-decoration: none !important;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            height: 100%;
+            border-bottom: 2px solid transparent;
+          }
+          .nav-link-custom:hover {
+            color: #166534; /* text-primary */
+            border-bottom-color: rgba(22, 101, 52, 0.5);
+            text-decoration: none !important;
+          }
+          .nav-link-custom.active {
+            font-weight: 700;
+            color: #000000;
+            border-bottom-color: #166534;
+            text-decoration: none !important;
+          }
+          
+          /* Mega Menu */
+          .mega-menu-container {
+             position: absolute;
+             left: 50%;
+             right: 50%;
+             margin-left: -50vw;
+             margin-right: -50vw;
+             width: 100vw;
+             top: 100%;
+             background-color: white;
+             border-top: 1px solid #f3f4f6;
+             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+             opacity: 0;
+             visibility: hidden;
+             transform: translateY(10px);
+             transition: all 0.3s;
+             z-index: 50;
+          }
+          .nav-group:hover .mega-menu-container {
+             opacity: 1;
+             visibility: visible;
+             transform: translateY(0);
+          }
+          .mega-menu-grid {
+             display: grid;
+             grid-template-columns: repeat(3, 1fr);
+             column-gap: 0.5rem;
+             row-gap: 0.5rem;
+          }
+          .mega-menu-item {
+             display: block;
+             padding: 1rem;
+             border-radius: 0.5rem;
+             text-decoration: none !important;
+             transition: background-color 0.15s;
+          }
+          .mega-menu-item:hover {
+             background-color: #f9fafb;
+             text-decoration: none !important;
+          }
+          .mega-menu-title {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             font-weight: 700;
+             font-size: 1rem;
+             color: #1f2937;
+             transition: color 0.15s;
+          }
+          .mega-menu-item:hover .mega-menu-title {
+             color: #166534;
+          }
+          .mega-menu-desc {
+             font-size: 0.875rem;
+             color: #6b7280;
+             margin-top: 0.25rem;
+             display: -webkit-box;
+             -webkit-line-clamp: 2;
+             -webkit-box-orient: vertical;
+             overflow: hidden;
+          }
+          
+          /* Buttons */
+          .btn-login {
+            background-color: #166534;
+            color: #ffffff !important;
+            padding: 0.625rem 2rem; /* py-2.5 px-8 */
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            transition: background-color 0.15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+          }
+          .btn-login:hover {
+            background-color: #14532d;
+            color: #ffffff !important;
+          }
+
+          /* General Utils */
+          .rotate-chevron {
+             transition: transform 0.2s;
+          }
+          .nav-group:hover .rotate-chevron {
+             transform: rotate(180deg);
+          }
+          .text-secondary-custom {
+             color: #6b7280; /* Adjust secondary text color */
+          }
+          
+          /* Mobile Menu Styles */
+          #mobile-menu-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 5rem); /* Adjusted for h-20 navbar */
+            background: white;
+            z-index: 999;
+            border-top: 1px solid #f3f4f6;
+            overflow-y: auto;
+          }
+        </style>
+
+        <t t-set="current_path" t-value="request.httprequest.path"/>
+        <t t-set="cp" t-value="current_path.rstrip('/')"/>
+        
+        <!-- Desktop Top Bar -->
+        <div class="top-bar d-none d-lg-block">
+           <div class="custom-container">
+              <div class="top-bar-content">
+                 <!-- Left: Contact & Language -->
+                 <div class="d-flex align-items-center" style="gap: 1.5rem;">
+                    <!-- Whatsapp -->
+                    <div class="d-flex align-items-center" style="gap: 0.5rem; font-size: 0.875rem; font-weight: 500; color: #374151;">
+                       <svg style="width: 16px; height: 16px; color: #111827;" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                       </svg>
+                       <span>+62 895385708526</span>
+                       <span class="text-secondary-custom">Whatsapp</span>
+                    </div>
+
+                    <!-- Separator -->
+                    <div style="height: 16px; width: 1px; background-color: #d1d5db;"></div>
+
+                    <!-- Language -->
+                    <button class="btn p-0 border-0 d-flex align-items-center gap-1" style="font-size: 0.75rem; font-weight: 500; color: #4b5563;">
+                       <svg style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="2" y1="12" x2="22" y2="12"></line>
+                          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                       </svg>
+                       <span>ID</span>
+                    </button>
+                 </div>
+
+                 <!-- Center: Search Bar -->
+                 <div class="top-input-wrapper">
+                    <input type="text" placeholder="Ketik untuk mencari ..." class="top-search-input"/>
+                    <svg style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #9ca3af;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                       <circle cx="11" cy="11" r="8"></circle>
+                       <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                 </div>
+
+                 <!-- Right: Login Button -->
+                 <div>
+                    <a href="/web/login" class="btn-login" style="color: #ffffff !important;">
+                       Masuk
+                    </a>
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        <div class="custom-container position-relative">
+          <div class="navbar-content">
+            
             <!-- Logo -->
-            <div class="flex-shrink-0">
-              <a href="/" class="flex items-center">
-                <img src="/parakarsa/static/src/img/logo.png" alt="Parakarsa" class="h-12 w-auto"/>
+            <div class="d-flex align-items-center">
+              <a href="/">
+                <img src="/parakarsa/static/src/img/logo.png" alt="Parakarsa" style="height: 48px; width: auto; object-fit: contain;"/>
               </a>
             </div>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-8">
-              <a href="/" class="text-gray-700 hover:text-green-800 font-medium transition-colors">Home</a>
-              <a href="/about" class="text-gray-700 hover:text-green-800 font-medium transition-colors">About Us</a>
-              <a href="/services" class="text-gray-700 hover:text-green-800 font-medium transition-colors">Services</a>
-              <a href="/contact" class="text-gray-700 hover:text-green-800 font-medium transition-colors">Contact</a>
-            </div>
-
-            <!-- CTA Button -->
-            <div class="hidden md:block">
-              <a href="/contact" class="px-6 py-2.5 bg-green-800 text-white font-semibold rounded-lg hover:bg-green-900 transition-colors shadow-md">
-                Get Started
+            <div class="d-none d-lg-flex align-items-center" style="gap: 2.5rem; height: 100%;">
+              <a href="/" t-att-class="(cp in ['', '/id', '/en']) and 'nav-link-custom active' or 'nav-link-custom'">
+                Beranda
               </a>
+              
+              <a href="/cerita" t-att-class="cp.endswith('/cerita') and 'nav-link-custom active' or 'nav-link-custom'">
+                Cerita
+              </a>
+
+              <a href="/acara" t-att-class="cp.endswith('/acara') and 'nav-link-custom active' or 'nav-link-custom'">
+                Acara
+              </a>
+
+              <!-- Ekosistem Mega Menu -->
+              <div class="nav-group position-static h-100 d-flex align-items-center">
+                <button t-att-class="(cp.endswith('/program') or cp.endswith('/project') or cp.endswith('/product')) and 'nav-link-custom active border-0 bg-transparent' or 'nav-link-custom border-0 bg-transparent'">
+                  Ekosistem
+                  <svg t-att-class="(cp.endswith('/program') or cp.endswith('/project') or cp.endswith('/product')) and 'ms-1 rotate-chevron stroke-[3px]' or 'ms-1 rotate-chevron'" style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="mega-menu-container">
+                  <div class="custom-container py-4">
+                     <h3 style="font-size: 1.25rem; font-weight: 700; color: #166534; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        Ekosistem
+                        <svg style="width: 20px; height: 20px; color: #9ca3af; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                     </h3>
+                     <div class="mega-menu-grid">
+                        <a href="/program" class="mega-menu-item">
+                           <div class="mega-menu-title">
+                              Program
+                              <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                           </div>
+                           <p class="mega-menu-desc">Inisiatif unggulan untuk mendorong inovasi dan kreativitas.</p>
+                        </a>
+                        <a href="/project" class="mega-menu-item">
+                           <div class="mega-menu-title">
+                              Project
+                              <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                           </div>
+                           <p class="mega-menu-desc">Kolaborasi nyata dalam membangun solusi ekonomi kreatif.</p>
+                        </a>
+                        <a href="/product" class="mega-menu-item">
+                           <div class="mega-menu-title">
+                              Product
+                              <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                           </div>
+                           <p class="mega-menu-desc">Produk-produk berkualitas hasil karya komunitas Parakarsa.</p>
+                        </a>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              <a href="/terhubung" t-att-class="cp.endswith('/terhubung') and 'nav-link-custom active' or 'nav-link-custom'">
+                Terhubung
+              </a>
+
+              <!-- Lainnya Mega Menu -->
+              <div class="nav-group position-static h-100 d-flex align-items-center">
+                <button class="nav-link-custom border-0 bg-transparent">
+                  Lainnya
+                  <svg class="ms-1 rotate-chevron" style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                 <div class="mega-menu-container">
+                  <div class="custom-container py-4">
+                     <h3 style="font-size: 1.25rem; font-weight: 700; color: #166534; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        Lainnya
+                        <svg style="width: 20px; height: 20px; color: #9ca3af; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                     </h3>
+                     <div class="mega-menu-grid">
+                        <a href="/berita" class="mega-menu-item">
+                           <div class="mega-menu-title">Berita <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                           <p class="mega-menu-desc">Kabar terbaru dan insight seputar dunia ekonomi kreatif.</p>
+                        </a>
+                        <a href="/koperasi" class="mega-menu-item">
+                           <div class="mega-menu-title">Koperasi Merah Putih <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                           <p class="mega-menu-desc">Wadah kolaborasi ekonomi untuk kesejahteraan bersama.</p>
+                        </a>
+                        <a href="/digital-marketing" class="mega-menu-item">
+                           <div class="mega-menu-title">Digital Marketing <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                           <p class="mega-menu-desc">Strategi dan tools untuk menumbuhkan bisnis di era digital.</p>
+                        </a>
+                        <a href="/experience" class="mega-menu-item">
+                           <div class="mega-menu-title">Experience <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                           <p class="mega-menu-desc">Pengalaman imersif melalui event dan aktivitas seru.</p>
+                        </a>
+                        <a href="/toko" class="mega-menu-item">
+                           <div class="mega-menu-title">Toko <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                           <p class="mega-menu-desc">Marketplace produk kreatif pilihan dari mitra kami.</p>
+                        </a>
+                        <a href="/forum" class="mega-menu-item">
+                           <div class="mega-menu-title">Forum <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                           <p class="mega-menu-desc">Ruang diskusi dan berbagi ide antar pelaku kreatif.</p>
+                        </a>
+                        <a href="/impact" class="mega-menu-item">
+                           <div class="mega-menu-title">Impact <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                           <p class="mega-menu-desc">Dampak sosial dan ekonomi yang telah kami ciptakan.</p>
+                        </a>
+                        <a href="/community" class="mega-menu-item">
+                           <div class="mega-menu-title">Community <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                           <p class="mega-menu-desc">Jejaring komunitas kreatif yang solid dan suportif.</p>
+                        </a>
+                        <a href="/actor" class="mega-menu-item">
+                           <div class="mega-menu-title">Actor <svg style="width: 16px; height: 16px; color: #d1d5db; transform: rotate(-90deg);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                           <p class="mega-menu-desc">Profil tokoh dan penggerak utama di balik Parakarsa.</p>
+                        </a>
+                     </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- Mobile Menu Button (Basic) -->
-            <div class="md:hidden flex items-center">
-              <button class="text-gray-700 hover:text-green-800 focus:outline-none">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <!-- Mobile Toggle Button -->
+            <div class="d-lg-none d-flex align-items-center">
+              <button id="mobile-menu-toggle" class="btn-icon-custom">
+                <svg id="icon-menu" style="width: 28px; height: 28px; color: #374151;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+                <svg id="icon-close" style="width: 28px; height: 28px; display: none; color: #374151;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                   <line x1="18" y1="6" x2="6" y2="18"></line>
+                   <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
               </button>
             </div>
           </div>
-        </nav>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu-dropdown" class="d-lg-none" style="display: none;">
+          <div class="p-3">
+             <div class="position-relative bg-light rounded-pill">
+                <input type="text" placeholder="Ketik untuk mencari ..." class="form-control border-0 bg-transparent shadow-none" style="padding: 0.75rem 2.5rem 0.75rem 1rem; font-size: 0.875rem;"/>
+                <svg style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: #9ca3af;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                   <circle cx="11" cy="11" r="8"></circle>
+                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+             </div>
+          </div>
+
+          <div class="d-flex flex-column px-3">
+             <a href="/" t-att-class="(cp in ['', '/id', '/en']) and 'd-flex justify-content-between align-items-center w-100 py-3 text-dark text-decoration-none border-bottom font-weight-bold' or 'd-flex justify-content-between align-items-center w-100 py-3 text-dark text-decoration-none border-bottom'">
+                <span>Beranda</span>
+             </a>
+             
+             <a href="/cerita" t-att-class="cp.endswith('/cerita') and 'd-flex justify-content-between align-items-center w-100 py-3 text-dark text-decoration-none border-bottom font-weight-bold' or 'd-flex justify-content-between align-items-center w-100 py-3 text-dark text-decoration-none border-bottom'">
+                <span>Cerita</span>
+             </a>
+
+             <a href="/acara" t-att-class="cp.endswith('/acara') and 'd-flex justify-content-between align-items-center w-100 py-3 text-dark text-decoration-none border-bottom font-weight-bold' or 'd-flex justify-content-between align-items-center w-100 py-3 text-dark text-decoration-none border-bottom'">
+                <span>Acara</span>
+             </a>
+
+             <!-- Ekosistem Accordion -->
+             <div class="border-bottom">
+               <div class="mobile-accordion-toggle d-flex justify-content-between align-items-center w-100 py-3 text-dark text-decoration-none" style="cursor: pointer;" data-target="#mobile-ekosistem">
+                 <span t-att-class="(cp.endswith('/program') or cp.endswith('/project') or cp.endswith('/product')) and 'font-weight-bold' or ''">Ekosistem</span>
+                 <svg style="width: 20px; height: 20px; color: #9ca3af; transition: transform 0.2s;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                   <polyline points="6 9 12 15 18 9"></polyline>
+                 </svg>
+               </div>
+               <div id="mobile-ekosistem" class="bg-light px-3 pb-2" style="display: none;">
+                  <a href="/program" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Program</div>
+                     <div class="small text-muted mt-1">Inisiatif unggulan untuk mendorong inovasi dan kreativitas.</div>
+                  </a>
+                  <a href="/project" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Project</div>
+                     <div class="small text-muted mt-1">Kolaborasi nyata dalam membangun solusi ekonomi kreatif.</div>
+                  </a>
+                  <a href="/product" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Product</div>
+                     <div class="small text-muted mt-1">Produk-produk berkualitas hasil karya komunitas Parakarsa.</div>
+                  </a>
+               </div>
+             </div>
+
+             <a href="/terhubung" t-att-class="cp.endswith('/terhubung') and 'd-flex justify-content-between align-items-center w-100 py-3 text-dark text-decoration-none border-bottom font-weight-bold' or 'd-flex justify-content-between align-items-center w-100 py-3 text-dark text-decoration-none border-bottom'">
+                <span>Terhubung</span>
+             </a>
+
+              <!-- Lainnya Accordion -->
+             <div class="border-bottom">
+               <div class="mobile-accordion-toggle d-flex justify-content-between align-items-center w-100 py-3 text-dark text-decoration-none" style="cursor: pointer;" data-target="#mobile-lainnya">
+                 <span>Lainnya</span>
+                 <svg style="width: 20px; height: 20px; color: #9ca3af; transition: transform 0.2s;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                   <polyline points="6 9 12 15 18 9"></polyline>
+                 </svg>
+               </div>
+               <div id="mobile-lainnya" class="bg-light px-3 pb-2" style="display: none;">
+                  <a href="/berita" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Berita</div>
+                     <div class="small text-muted mt-1">Kabar terbaru dan insight seputar dunia ekonomi kreatif.</div>
+                  </a>
+                  <a href="/koperasi" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Koperasi Merah Putih</div>
+                     <div class="small text-muted mt-1">Wadah kolaborasi ekonomi untuk kesejahteraan bersama.</div>
+                  </a>
+                  <a href="/digital-marketing" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Digital Marketing</div>
+                     <div class="small text-muted mt-1">Strategi dan tools untuk menumbuhkan bisnis di era digital.</div>
+                  </a>
+                  <a href="/experience" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Experience</div>
+                     <div class="small text-muted mt-1">Pengalaman imersif melalui event dan aktivitas seru.</div>
+                  </a>
+                  <a href="/toko" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Toko</div>
+                     <div class="small text-muted mt-1">Marketplace produk kreatif pilihan dari mitra kami.</div>
+                  </a>
+                  <a href="/forum" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Forum</div>
+                     <div class="small text-muted mt-1">Ruang diskusi dan berbagi ide antar pelaku kreatif.</div>
+                  </a>
+                  <a href="/impact" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Impact</div>
+                     <div class="small text-muted mt-1">Dampak sosial dan ekonomi yang telah kami ciptakan.</div>
+                  </a>
+                  <a href="/community" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Community</div>
+                     <div class="small text-muted mt-1">Jejaring komunitas kreatif yang solid dan suportif.</div>
+                  </a>
+                  <a href="/actor" class="d-block py-3 text-decoration-none">
+                     <div class="font-weight-bold text-dark">Actor</div>
+                     <div class="small text-muted mt-1">Profil tokoh dan penggerak utama di balik Parakarsa.</div>
+                  </a>
+               </div>
+             </div>
+          </div>
+          
+          <div class="p-3 mt-auto border-top border-light">
+             <!-- Whatsapp Mobile -->
+             <div class="d-flex align-items-center mb-3 px-1 text-dark">
+                <svg style="width: 20px; height: 20px; color: #111827;" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                <div class="d-flex align-items-center gap-2 ps-2">
+                   <span class="font-weight-bold">+62 895385708526</span>
+                   <span class="small text-muted font-weight-bold">Whatsapp</span>
+                </div>
+             </div>
+
+             <div class="d-flex justify-content-between align-items-center py-3 text-secondary border-top border-light mb-2 cursor-pointer">
+                <div class="d-flex align-items-center gap-2">
+                   <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                   </svg>
+                   <span class="font-weight-medium">Bahasa Indonesia</span>
+                </div>
+                <div class="small font-weight-bold border border-secondary rounded px-1">ID</div>
+             </div>
+             
+             <a href="/web/login" class="btn-login d-block w-100 text-center text-decoration-none" style="padding: 0.75rem 0; font-size: 1rem; color: #ffffff !important;">
+                Masuk
+             </a>
+          </div>
+        </div>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            var toggleBtn = document.getElementById('mobile-menu-toggle');
+            var mobileMenu = document.getElementById('mobile-menu-dropdown');
+            var iconMenu = document.getElementById('icon-menu');
+            var iconClose = document.getElementById('icon-close');
+
+            if (toggleBtn) {
+              toggleBtn.addEventListener('click', function() {
+                if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+                   mobileMenu.style.display = 'block';
+                   iconMenu.style.display = 'none';
+                   iconClose.style.display = 'block';
+                } else {
+                   mobileMenu.style.display = 'none';
+                   iconMenu.style.display = 'block';
+                   iconClose.style.display = 'none';
+                }
+              });
+            }
+
+            var accordionToggles = document.querySelectorAll('.mobile-accordion-toggle');
+            accordionToggles.forEach(function(toggle) {
+              toggle.addEventListener('click', function() {
+                var targetId = this.getAttribute('data-target');
+                var targetContent = document.querySelector(targetId);
+                var icon = this.querySelector('svg');
+                
+                if (targetContent) {
+                  if (targetContent.style.display === 'none' || targetContent.style.display === '') {
+                    targetContent.style.display = 'block';
+                    icon.style.transform = 'rotate(180deg)';
+                  } else {
+                    targetContent.style.display = 'none';
+                    icon.style.transform = 'rotate(0deg)';
+                  }
+                }
+              });
+            });
+          });
+        </script>
       </header>
     </xpath>
   </template>

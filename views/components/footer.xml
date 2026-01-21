@@ -1,0 +1,135 @@
+<odoo>
+  <template id="custom_footer" inherit_id="website.layout" name="Custom Footer">
+    <xpath expr="//footer" position="replace">
+      <footer id="parakarsa-footer" class="font-sans border-top border-gray-100">
+        <style>
+          #parakarsa-footer {
+            font-family: 'Poppins', sans-serif;
+            border-top: 1px solid #f3f4f6;
+          }
+          #parakarsa-footer .custom-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+          }
+          #parakarsa-footer .text-gray-600 {
+            color: #4b5563;
+          }
+          #parakarsa-footer .text-gray-400 {
+             color: #9ca3af;
+          }
+          #parakarsa-footer .text-gray-900 {
+             color: #111827;
+          }
+          #parakarsa-footer .bg-primary {
+             background-color: #166534 !important;
+          }
+          #parakarsa-footer .opacity-90 {
+             opacity: 0.9;
+          }
+          #parakarsa-footer .social-icon {
+             transition: color 0.15s;
+             color: #9ca3af;
+          }
+          #parakarsa-footer .social-icon:hover {
+             color: #166534;
+          }
+          #parakarsa-footer ul li {
+             margin-bottom: 0.75rem;
+          }
+          #parakarsa-footer ul li a {
+             text-decoration: none;
+             color: #4b5563;
+             transition: color 0.15s;
+          }
+          #parakarsa-footer ul li a:hover {
+             color: #166534;
+          }
+          #parakarsa-footer .hover-underline:hover {
+             text-decoration: underline !important;
+          }
+        </style>
+        
+        <!-- Main Section -->
+        <div class="bg-white" style="padding-top: 4rem; padding-bottom: 3rem;">
+          <div class="custom-container">
+            <div class="row gy-5">
+              <!-- Left Column: Brand & About -->
+              <div class="col-lg-5">
+                <div class="d-flex align-items-center gap-2 mb-4">
+                   <img src="/parakarsa/static/src/img/logo.png" alt="Parakarsa" style="height: 2.5rem; object-fit: contain;"/>
+                </div>
+
+                <div class="mb-4">
+                  <p class="text-gray-600 small text-justify mb-0" style="max-width: 24rem; line-height: 1.625;">
+                    Parakarsa adalah platform pendidikan kolaboratif yang mendukung pelaku ekonomi kreatif sejak 2016. Melalui ekosistem "Theater of Education", kami menghubungkan komunitas, pemerintah, dan bisnis untuk pertumbuhan yang terarah dan berkelanjutan.
+                  </p>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="d-flex align-items-center" style="gap: 1.25rem;">
+                  <a href="#" class="social-icon"><i class="fa fa-twitter fa-lg"></i></a>
+                  <a href="#" class="social-icon"><i class="fa fa-linkedin fa-lg"></i></a>
+                  <a href="#" class="social-icon"><i class="fa fa-instagram fa-lg"></i></a>
+                  <a href="#" class="social-icon"><i class="fa fa-facebook fa-lg"></i></a>
+                  <a href="#" class="social-icon"><i class="fa fa-youtube-play fa-lg"></i></a>
+                </div>
+              </div>
+
+              <!-- Right Columns: Links -->
+              <div class="col-lg-7">
+                <div class="row pt-lg-2">
+                   <!-- Column 1: Perusahaan -->
+                   <div class="col-6 col-md-4 mb-4 mb-md-0">
+                      <h4 class="font-weight-bold text-gray-900 mb-4" style="font-size: 1.125rem;">Perusahaan</h4>
+                      <ul class="list-unstyled small mb-0">
+                         <li><a href="#">Beranda</a></li>
+                         <li><a href="#">Tentang Kami</a></li>
+                         <li><a href="#">Sejarah</a></li>
+                         <li><a href="#">Karir</a></li>
+                         <li><a href="#">Kontak</a></li>
+                      </ul>
+                   </div>
+
+                   <!-- Column 2: Sumber Daya -->
+                   <div class="col-6 col-md-4 mb-4 mb-md-0">
+                      <h4 class="font-weight-bold text-gray-900 mb-4" style="font-size: 1.125rem;">Sumber Daya</h4>
+                      <ul class="list-unstyled small mb-0">
+                         <li><a href="#">Studi Kasus</a></li>
+                         <li><a href="#">Layanan</a></li>
+                         <li><a href="#">Forum</a></li>
+                         <li><a href="#">Pustaka</a></li>
+                      </ul>
+                   </div>
+
+                   <!-- Column 3: Dukungan -->
+                   <div class="col-6 col-md-4">
+                      <h4 class="font-weight-bold text-gray-900 mb-4" style="font-size: 1.125rem;">Dukungan</h4>
+                      <ul class="list-unstyled small mb-0">
+                         <li><a href="#">Bantuan</a></li>
+                         <li><a href="#">Syarat &amp; Ketentuan</a></li>
+                         <li><a href="#">Kebijakan Privasi</a></li>
+                         <li><a href="#">Keamanan</a></li>
+                      </ul>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="bg-primary text-white" style="padding-top: 1.5rem; padding-bottom: 1.5rem;">
+          <div class="custom-container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 small">
+            <p class="mb-0 opacity-90">&#169; 2026 Parakarsa. All rights reserved.</p>
+            <div class="d-flex align-items-center opacity-90 font-weight-medium" style="gap: 2rem;">
+               <a href="#" class="text-white text-decoration-none hover-underline">Terms of Service</a>
+               <a href="#" class="text-white text-decoration-none hover-underline">Privacy Policy</a>
+               <a href="#" class="text-white text-decoration-none hover-underline">Cookies</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </xpath>
+  </template>
+</odoo>
