@@ -8,6 +8,8 @@
     "depends": ["website"],
     "data": [
         "views/pages/landing.xml",
+        "views/pages/events.xml",
+        "views/pages/event_detail.xml",
         "views/components/navbar.xml",
         "views/components/footer.xml",
     ],
@@ -16,6 +18,8 @@
         "web.assets_frontend": [
             "parakarsa/static/src/css/main.v2.min.css",
             "parakarsa/static/src/js/navbar.js",
+            "parakarsa/static/src/js/events.js",
+            "parakarsa/static/src/js/event_detail.js",
         ],
     },
     "application": False,
