@@ -1,14 +1,169 @@
 <odoo>
   <template id="landing_page">
     <t t-call="website.layout">
+      <div class="home-page">
+      
+        <!-- 1. Hero Section -->
+        <section class="home-hero">
+          <!-- Background Images -->
+          <div class="hero-bg-container">
+            <t t-foreach="hero['images']" t-as="image">
+              <img t-att-src="image" 
+                   t-attf-class="hero-bg-img #{'active' if image_index == 0 else ''}" 
+                   alt="Hero Background"/>
+            </t>
+            <div class="hero-overlay"></div>
+          </div>
 
-      <!-- TEST TAILWIND -->
-      <div class="min-h-screen flex items-center justify-center bg-gray-100">
-        <h1 class="text-6xl font-extrabold text-red-600">
-          TAILWIND BERHASIL
-        </h1>
+          <!-- Content -->
+          <div class="container relative z-10">
+            <div class="hero-centered-content">
+              <span class="hero-pre-title">#TheNextStageTogether</span>
+              <h1 t-esc="hero['title']"/>
+              <p t-esc="hero['subtitle']"/>
+              
+              <div class="hero-cta-group centered">
+                <a href="#start" class="btn btn-white" style="color: #1A4D2E !important;">
+                  JELAJAHI EKOSISTEM
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Slider Dots (JS handles click) -->
+          <div class="slider-dots-hero">
+            <t t-foreach="hero['images']" t-as="image">
+               <div t-attf-class="slider-dot-hero #{'active' if image_index == 0 else ''}"></div>
+            </t>
+          </div>
+        </section>
+
+
+        <!-- 2. Traction / Stats Section -->
+        <section id="start" class="traction-section-hero">
+          <div class="container">
+            <div class="stats-grid-hero">
+              <t t-foreach="traction['stats']" t-as="stat">
+                <div class="stat-card-hero">
+                  <!-- Added data-value for JS animation -->
+                  <div class="stat-value-hero" t-att-data-value="stat['value']" t-esc="stat['value']"/>
+                  <div class="stat-label-hero" t-esc="stat['label']"/>
+                </div>
+              </t>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- 3. Solution Overview -->
+        <section class="solution-section">
+          <div class="container">
+            <div class="solution-content">
+              <!-- Visual/Image - LEFT SIDE -->
+              <div class="solution-visual">
+                <!-- Abstract Visual Representation of OKE System -->
+                <div class="oke-system-visual">
+                  <div class="circle c1"></div>
+                  <div class="circle c2"></div>
+                  <div class="circle c3"></div>
+                  <div class="center-logo">
+                    <img src="/parakarsa/static/src/img/logo.png" alt="Parakarsa" style="width: 100%; height: auto;"/>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Text Content - RIGHT SIDE -->
+              <div class="solution-text">
+                <h2 t-esc="solution['title']"/>
+                <span class="subtitle-badge" t-esc="solution['description']"/>
+                
+                <div class="pillars-list">
+                  <t t-foreach="solution['pillars']" t-as="pillar">
+                    <div class="pillar-item">
+                      <div class="pillar-icon">
+                        <i t-att-class="pillar['icon_class']"></i>
+                      </div>
+                      <div>
+                        <h4 t-esc="pillar['title']"/>
+                        <p t-esc="pillar['desc']"/>
+                      </div>
+                    </div>
+                  </t>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Products -->
+        <section class="products-section">
+          <div class="container">
+            <div class="section-header center">
+              <h2>Ekosistem Produk &amp; Layanan Parakarsa</h2>
+            </div>
+            
+            <div class="products-grid">
+              <t t-foreach="products" t-as="product">
+                <div class="product-card">
+                  <div class="product-number">0<t t-esc="product_index + 1"/></div>
+                  <h3 t-esc="product['title']"/>
+                  <p t-esc="product['desc']"/>
+                  <!-- <a href="#" class="product-link">
+                    Pelajari Lebih Lanjut <i class="fa fa-arrow-right ml-2"/>
+                  </a> -->
+                </div>
+              </t>
+            </div>
+          </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section">
+          <div class="container">
+            <div class="section-header center">
+              <i class="fa fa-quote-left quote-icon-header" style="font-size: 48px;"></i>
+              <h2>Apa Kata Mereka?</h2>
+              <p>Pengalaman nyata dari partner dan komunitas Parakarsa</p>
+            </div>
+
+            <div class="testimonials-grid">
+              <t t-foreach="stories" t-as="testi">
+                <div class="testimonial-card">
+                  <div class="testimonial-stars">
+                    <t t-foreach="range(5)" t-as="star">
+                      <i class="fa fa-star"></i>
+                    </t>
+                  </div>
+                  <p class="testimonial-text">"<t t-esc="testi['quote']"/>"</p>
+                  <div class="testimonial-footer">
+                    <img t-att-src="testi['image']" t-att-alt="testi['name']" class="testimonial-avatar"/>
+                    <div class="testimonial-info">
+                      <h5 t-esc="testi['name']"/>
+                      <span><t t-esc="testi['role']"/>, <t t-esc="testi['company']"/></span>
+                    </div>
+                  </div>
+                </div>
+              </t>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. Final CTA -->
+        <section class="final-cta-section">
+          <div class="container">
+            <div class="cta-box">
+              <h2>Siap Melangkah ke Tahap Berikutnya?</h2>
+              <p>#TheNextStageTogether</p>
+              <div class="cta-buttons">
+                <a href="https://wa.me/6281234567890?text=Halo%20Parakarsa,%20saya%20ingin%20berdiskusi" target="_blank" class="btn btn-outline-white">
+                  Diskusi dengan Parakarsa
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </div>
-
     </t>
   </template>
 </odoo>

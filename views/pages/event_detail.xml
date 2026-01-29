@@ -3,6 +3,11 @@
     <t t-call="website.layout">
 
       <style>
+        /* EventDetail Page Styles */
+        
+        /* Import Poppins Font (Preserved) */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap');
+
         /* ========== Variables ========== */
         :root {
           --detail-primary: #1A4D2E;
@@ -24,24 +29,8 @@
           min-height: 100vh;
           background-color: var(--detail-bg);
           color: var(--detail-text);
+          font-family: 'Poppins', 'Inter', sans-serif;
           padding-bottom: 80px;
-        }
-
-        .event-detail-page a {
-          text-decoration: none !important;
-        }
-
-        .event-detail-page a.back-link,
-        .event-detail-page a.back-link:hover,
-        .event-detail-page a.back-link:visited {
-          color: #ffffff !important;
-        }
-
-        .event-detail-page a.cta-button,
-        .event-detail-page a.cta-button:hover,
-        .event-detail-page a.cta-button:visited,
-        .event-detail-page a.cta-button * {
-          color: #ffffff !important;
         }
 
         /* ========== Not Found State ========== */
@@ -52,25 +41,10 @@
           justify-content: center;
         }
 
-        .not-found-content {
-          text-align: center;
-        }
-
-        .not-found-content h2 {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: var(--detail-text);
-          margin-bottom: 16px;
-        }
-
-        .not-found-content a {
-          color: var(--detail-primary);
-          font-weight: 500;
-        }
-
-        .not-found-content a:hover {
-          opacity: 0.8;
-        }
+        .not-found-content { text-align: center; }
+        .not-found-content h2 { font-size: 1.5rem; font-weight: 700; color: var(--detail-text); margin-bottom: 16px; }
+        .not-found-content a { color: var(--detail-primary); text-decoration: none; font-weight: 500; }
+        .not-found-content a:hover { text-decoration: underline; }
 
         /* ========== Hero Section ========== */
         .detail-hero {
@@ -80,16 +54,8 @@
           width: 100%;
         }
 
-        .detail-hero-bg {
-          position: absolute;
-          inset: 0;
-        }
-
-        .detail-hero-bg img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+        .detail-hero-bg { position: absolute; inset: 0; }
+        .detail-hero-bg img { width: 100%; height: 100%; object-fit: cover; }
 
         .detail-hero-overlay {
           position: absolute;
@@ -116,118 +82,42 @@
         .back-link {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          color: white !important;
+          gap: 4px;
+          color: rgba(255, 255, 255, 0.8) !important;
+          text-decoration: none !important;
           font-size: 0.9rem;
-          font-weight: 500;
           margin-bottom: 24px;
-          transition: opacity var(--detail-transition);
+          transition: color var(--detail-transition);
         }
 
-        .back-link:hover {
-          color: white !important;
-          opacity: 0.8;
-        }
-
-        .back-link i {
-          transition: transform var(--detail-transition);
-        }
-
-        .back-link:hover i {
-          transform: translateX(-4px);
-        }
+        .back-link:hover { color: white !important; text-decoration: none !important; }
+        .back-link svg, .back-link i { transition: transform var(--detail-transition); }
+        .back-link:hover svg, .back-link:hover i { transform: translateX(-4px); }
 
         /* Badges */
-        .detail-badges {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-bottom: 16px;
-        }
-
+        .detail-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
         .detail-badge {
           padding: 6px 14px;
           border-radius: 8px;
           font-size: 0.7rem;
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.5px;
           color: white;
         }
-
-        .detail-badge.category {
-          background-color: var(--detail-primary);
-        }
-
-        .detail-badge.status {
-          background: rgba(255, 255, 255, 0.2);
-          backdrop-filter: blur(8px);
-        }
-
-        .detail-badge.status.ongoing {
-          background-color: #ef4444;
-          animation: pulse 2s infinite;
-        }
-
-        .detail-badge.format {
-          background: rgba(255, 255, 255, 0.15);
-          backdrop-filter: blur(8px);
-        }
-
-        .detail-badge.format.online {
-          background: rgba(59, 130, 246, 0.9);
-        }
-
-        .detail-badge.format.offline {
-          background: rgba(107, 114, 128, 0.9);
-        }
-
-        .detail-badge.format.hybrid {
-          background: rgba(168, 85, 247, 0.9);
-        }
-
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.7; }
-        }
+        .detail-badge.category { background-color: var(--detail-primary); }
+        .detail-badge.status { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); }
+        .detail-badge.format { background: rgba(59, 130, 246, 0.9); }
 
         /* Title */
-        .detail-title {
-          font-size: 3rem;
-          font-weight: 800;
-          color: white;
-          margin-bottom: 20px;
-          line-height: 1.15;
-          letter-spacing: -0.02em;
-        }
+        .detail-title { font-size: 3rem; font-weight: 800; color: white; margin-bottom: 20px; line-height: 1.15; }
 
         /* Meta Info */
-        .detail-meta {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 24px;
-          color: rgba(255, 255, 255, 0.9);
-          font-size: 0.95rem;
-          margin-bottom: 32px;
-        }
-
-        .detail-meta-item {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .detail-meta-item i {
-          color: var(--detail-secondary);
-        }
+        .detail-meta { display: flex; flex-wrap: wrap; gap: 24px; color: rgba(255, 255, 255, 0.9); font-size: 0.95rem; margin-bottom: 32px; }
+        .detail-meta-item { display: flex; align-items: center; gap: 8px; }
+        .detail-meta-item i { color: var(--detail-secondary); }
 
         /* CTA Section */
-        .detail-cta {
-          display: flex;
-          align-items: center;
-          gap: 20px;
-        }
-
+        .detail-cta { display: flex; align-items: center; gap: 20px; }
         .cta-button {
           display: inline-flex;
           align-items: center;
@@ -238,41 +128,16 @@
           border-radius: 50px;
           font-size: 1rem;
           font-weight: 700;
+          text-decoration: none !important;
           box-shadow: 0 8px 24px rgba(26, 77, 46, 0.35);
           transition: all var(--detail-transition);
         }
-
-        .cta-button:hover {
-          background-color: var(--detail-primary-light);
-          transform: scale(1.05);
-          color: white !important;
-        }
-
-        .cta-button i {
-          color: white !important;
-        }
-
-        .detail-price {
-          font-size: 1.5rem;
-          font-weight: 800;
-          color: white;
-        }
+        .cta-button:hover { background-color: var(--detail-primary-light); transform: scale(1.05); }
+        .detail-price { font-size: 1.5rem; font-weight: 800; color: white; }
 
         /* ========== Content Section ========== */
-        .detail-content {
-          max-width: 1280px;
-          margin: 0 auto;
-          padding: 0 24px;
-          margin-top: -32px;
-          position: relative;
-          z-index: 10;
-        }
-
-        .detail-grid {
-          display: grid;
-          grid-template-columns: 2fr 1fr;
-          gap: 32px;
-        }
+        .detail-content { max-width: 1280px; margin: 0 auto; padding: 0 24px; margin-top: -32px; position: relative; z-index: 10; }
+        .detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; }
 
         /* ========== Tabs ========== */
         .tabs-header {
@@ -283,8 +148,6 @@
           box-shadow: 0 2px 8px var(--detail-shadow);
           border: 1px solid var(--detail-border);
           margin-bottom: 24px;
-          overflow-x: auto;
-          max-width: 100%;
         }
 
         .tab-button {
@@ -297,22 +160,10 @@
           border: none;
           cursor: pointer;
           transition: all var(--detail-transition);
-          text-transform: capitalize;
-          white-space: nowrap;
         }
 
-        .tab-button:hover {
-          background: #f3f4f6;
-          color: var(--detail-text);
-        }
+        .tab-button.active { background: var(--detail-text); color: white; }
 
-        .tab-button.active {
-          background: var(--detail-text);
-          color: white;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Tab Content */
         .tab-content {
           background: var(--detail-card-bg);
           border-radius: var(--detail-radius);
@@ -322,513 +173,176 @@
           min-height: 400px;
           display: none;
         }
-
-        .tab-content.active {
-          display: block;
-        }
-
-        .tab-content h3 {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: var(--detail-text);
-          margin-bottom: 20px;
-        }
-
-        .tab-content h4 {
-          font-size: 1.1rem;
-          font-weight: 600;
-          color: var(--detail-text);
-          margin-bottom: 12px;
-        }
+        .tab-content.active { display: block; }
+        .tab-content h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
 
         /* Description Tab */
-        .description-text {
-          font-size: 1.1rem;
-          line-height: 1.8;
-          color: var(--detail-text-muted);
-          margin-bottom: 32px;
-        }
-
-        .checklist {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .checklist li {
-          display: flex;
-          align-items: flex-start;
-          gap: 12px;
-          padding: 12px 0;
-          font-size: 1rem;
-          color: var(--detail-text);
-        }
-
-        .checklist li i {
-          color: var(--detail-primary);
-          flex-shrink: 0;
-          margin-top: 2px;
-        }
+        .description-text { font-size: 1.1rem; line-height: 1.8; color: var(--detail-text-muted); margin-bottom: 32px; }
+        .checklist { list-style: none; padding: 0; }
+        .checklist li { display: flex; gap: 12px; padding: 8px 0; }
+        .checklist li i { color: var(--detail-primary); margin-top: 4px; }
 
         /* Rundown Tab */
-        .timeline {
-          position: relative;
-          margin-left: 12px;
-          border-left: 2px solid #e5e7eb;
-        }
-
-        .timeline-item {
-          position: relative;
-          padding-left: 32px;
-          padding-bottom: 32px;
-        }
-
-        .timeline-item:last-child {
-          padding-bottom: 0;
-        }
-
-        .timeline-dot {
-          position: absolute;
-          left: -9px;
-          top: 0;
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          background: #d1d5db;
-          border: 3px solid white;
-          box-shadow: 0 0 0 2px #e5e7eb;
-        }
-
-        .timeline-dot.active {
-          background: var(--detail-primary);
-          animation: pulse 2s infinite;
-        }
-
-        .timeline-time {
-          font-family: monospace;
-          font-size: 0.875rem;
-          font-weight: 700;
-          color: var(--detail-primary);
-          margin-bottom: 4px;
-          display: block;
-        }
-
-        .timeline-activity {
-          font-size: 1.1rem;
-          font-weight: 600;
-          color: var(--detail-text);
-        }
+        .timeline { margin-left: 12px; border-left: 2px solid #e5e7eb; }
+        .timeline-item { position: relative; padding-left: 32px; padding-bottom: 32px; }
+        .timeline-dot { position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #d1d5db; border: 3px solid white; box-shadow: 0 0 0 2px #e5e7eb; }
+        .timeline-dot.active { background: var(--detail-primary); }
+        .timeline-time { font-weight: 700; color: var(--detail-primary); display: block; }
+        .timeline-activity { font-weight: 600; }
 
         /* Modules Tab */
-        .modules-grid {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
+        .modules-grid { display: flex; flex-direction: column; gap: 16px; }
+        .module-card { background: #f9fafb; border: 1px solid var(--detail-border); border-radius: var(--detail-radius-sm); padding: 20px; }
+        .module-number { width: 40px; height: 40px; border-radius: 10px; background: white; border: 1px solid var(--detail-border); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--detail-primary); margin-bottom: 12px; }
 
-        .module-card {
-          background: #f9fafb;
-          border: 1px solid var(--detail-border);
-          border-radius: var(--detail-radius-sm);
-          padding: 20px;
-          transition: border-color var(--detail-transition);
-        }
+        /* Speakers Tab */
+        .speaker-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        @media (max-width: 768px) { .speaker-grid { grid-template-columns: 1fr; } }
+        .speaker-card { background: #f9fafb; border-radius: var(--detail-radius-sm); padding: 24px; text-align: center; border: 1px solid var(--detail-border); }
+        .speaker-image { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin: 0 auto 16px; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .speaker-image img { width: 100%; height: 100%; object-fit: cover; }
+        .speaker-role { font-weight: 600; color: var(--detail-primary); }
 
-        .module-card:hover {
-          border-color: rgba(26, 77, 46, 0.3);
-        }
+        /* Sidebar */
+        .sidebar-card { background: var(--detail-card-bg); border-radius: var(--detail-radius); padding: 24px; box-shadow: 0 4px 20px var(--detail-shadow); border: 1px solid var(--detail-border); }
+        .organizer-info { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .organizer-avatar { width: 48px; height: 48px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .contact-button { width: 100%; padding: 12px; border-radius: var(--detail-radius-sm); border: 1px solid var(--detail-border); background: transparent; cursor: pointer; text-decoration: none !important; }
 
-        .module-header {
-          display: flex;
-          align-items: flex-start;
-          gap: 16px;
-        }
-
-        .module-number {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-          background: white;
-          border: 1px solid var(--detail-border);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 700;
-          color: var(--detail-primary);
-          flex-shrink: 0;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .module-content h4 {
-          font-size: 1.1rem;
-          font-weight: 700;
-          color: var(--detail-text);
-          margin-bottom: 8px;
-        }
-
-        .module-items {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .module-items li {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 0.9rem;
-          color: var(--detail-text-muted);
-          padding: 4px 0;
-        }
-
-        .module-items li::before {
-          content: '';
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: #d1d5db;
-          flex-shrink: 0;
-        }
-
-        /* ========== Sidebar ========== */
-        .detail-sidebar {
-          position: sticky;
-          top: 100px;
-        }
-
-        .sidebar-card {
-          background: var(--detail-card-bg);
-          border-radius: var(--detail-radius);
-          padding: 24px;
-          box-shadow: 0 4px 20px var(--detail-shadow);
-          border: 1px solid var(--detail-border);
-        }
-
-        .sidebar-card h3 {
-          font-size: 1rem;
-          font-weight: 700;
-          color: var(--detail-text);
-          margin-bottom: 16px;
-        }
-
-        .organizer-info {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 24px;
-        }
-
-        .organizer-avatar {
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
-          background: #f3f4f6;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-        }
-
-        .organizer-avatar i {
-          font-size: 1.5rem;
-          color: var(--detail-text-muted);
-        }
-
-        .organizer-details p {
-          margin: 0;
-        }
-
-        .organizer-details .name {
-          font-weight: 700;
-          color: var(--detail-text);
-        }
-
-        .organizer-details .verified {
-          font-size: 0.75rem;
-          color: var(--detail-text-muted);
-        }
-
-        .sidebar-divider {
-          border: none;
-          border-top: 1px solid var(--detail-border);
-          margin: 20px 0;
-        }
-
-        .sidebar-card h4 {
-          font-size: 0.9rem;
-          font-weight: 700;
-          color: var(--detail-text);
-          margin-bottom: 8px;
-        }
-
-        .sidebar-card > p {
-          font-size: 0.875rem;
-          color: var(--detail-text-muted);
-          margin-bottom: 16px;
-          line-height: 1.6;
-        }
-
-        .contact-button {
-          width: 100%;
-          padding: 12px 16px;
-          border-radius: var(--detail-radius-sm);
-          border: 1px solid var(--detail-border);
-          background: transparent;
-          color: var(--detail-text);
-          font-size: 0.9rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: background var(--detail-transition);
-        }
-
-        .contact-button:hover {
-          background: #f3f4f6;
-        }
-
-        /* ========== Responsive ========== */
-        @media (max-width: 1024px) {
-          .detail-grid {
-            grid-template-columns: 1fr;
-          }
-          
-          .detail-sidebar {
-            position: static;
-          }
-          
-          .detail-title {
-            font-size: 2.25rem;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .detail-hero {
-            height: auto;
-            min-height: 70vh;
-          }
-          
-          .detail-hero-inner {
-            padding-bottom: 32px;
-          }
-          
-          .detail-title {
-            font-size: 1.75rem;
-          }
-          
-          .detail-meta {
-            flex-direction: column;
-            gap: 12px;
-          }
-          
-          .detail-cta {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-          
-          .cta-button {
-            width: 100%;
-            justify-content: center;
-          }
-          
-          .tab-content {
-            padding: 24px;
-          }
-          
-          .tabs-header {
-            width: 100%;
-          }
-          
-          .tab-button {
-            flex: 1;
-            text-align: center;
-          }
-        }
+        @media (max-width: 1024px) { .detail-grid { grid-template-columns: 1fr; } }
       </style>
 
-      <div class="event-detail-page" id="event-detail-page">
+      <div class="event-detail-page">
         <t t-if="not event">
-          <!-- Not Found -->
           <div class="not-found">
-            <div class="not-found-content">
-              <h2>Acara Tidak Ditemukan</h2>
-              <a href="/acara">Kembali ke Daftar Acara</a>
-            </div>
+            <div class="not-found-content"><h2>Acara Tidak Ditemukan</h2><a href="/acara">Kembali ke Daftar Acara</a></div>
           </div>
         </t>
 
         <t t-if="event">
-          <!-- Hero Section -->
           <section class="detail-hero">
             <div class="detail-hero-bg">
               <img t-att-src="event.get('image')" t-att-alt="event.get('title')"/>
               <div class="detail-hero-overlay"></div>
             </div>
-            
             <div class="detail-hero-content">
               <div class="detail-hero-inner">
-                <a href="/acara" class="back-link" style="color: #fff !important;">
-                  <i class="fa fa-chevron-left" style="color: #fff !important;"></i>
-                  Kembali ke Acara
-                </a>
-                
-                <!-- Badges -->
+                <a href="/acara" class="back-link"><i class="fa fa-chevron-left"></i> Kembali ke Acara</a>
                 <div class="detail-badges">
                   <span class="detail-badge category"><t t-esc="event.get('category')"/></span>
-                  <span t-attf-class="detail-badge status #{event.get('status')}">
-                    <t t-if="event.get('status') == 'upcoming'">Akan Datang</t>
-                    <t t-elif="event.get('status') == 'ongoing'">Sedang Berlangsung</t>
-                    <t t-else="">Selesai</t>
-                  </span>
-                  <t t-if="event.get('format')">
-                    <span t-attf-class="detail-badge format #{event.get('format')}">
-                      <t t-if="event.get('format') == 'online'"><i class="fa fa-wifi me-1"></i></t>
-                      <t t-elif="event.get('format') == 'offline'"><i class="fa fa-building me-1"></i></t>
-                      <t t-else=""><i class="fa fa-random me-1"></i></t>
-                      <t t-esc="event.get('format')"/>
-                    </span>
-                  </t>
+                  <span class="detail-badge status"><t t-esc="event.get('status')"/></span>
+                  <span class="detail-badge format"><t t-esc="event.get('format')"/></span>
                 </div>
-
-                <!-- Title -->
                 <h1 class="detail-title"><t t-esc="event.get('title')"/></h1>
-
-                <!-- Meta Info -->
                 <div class="detail-meta">
-                  <div class="detail-meta-item">
-                    <i class="fa fa-calendar"></i>
-                    <span><t t-esc="event.get('date')"/></span>
-                  </div>
-                  <div class="detail-meta-item">
-                    <i class="fa fa-clock-o"></i>
-                    <span><t t-esc="event.get('time')"/></span>
-                  </div>
-                  <div class="detail-meta-item">
-                    <i class="fa fa-map-marker"></i>
-                    <span><t t-esc="event.get('location')"/></span>
-                  </div>
+                  <div class="detail-meta-item"><i class="fa fa-calendar"></i> <span><t t-esc="event.get('date')"/></span></div>
+                  <div class="detail-meta-item"><i class="fa fa-clock-o"></i> <span><t t-esc="event.get('time')"/></span></div>
+                  <div class="detail-meta-item"><i class="fa fa-map-marker"></i> <span><t t-esc="event.get('location')"/></span></div>
                 </div>
-
-                <!-- CTA -->
                 <div class="detail-cta">
-                  <a href="#" class="cta-button" style="color: #fff !important;">
-                    <i class="fa fa-ticket" style="color: #fff !important;"></i>
-                    Daftar Sekarang
-                  </a>
+                  <a href="#" class="cta-button">Daftar Sekarang</a>
                   <span class="detail-price"><t t-esc="event.get('price')"/></span>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- Content Section -->
           <div class="detail-content">
             <div class="detail-grid">
-              
-              <!-- Left Column: Main Content -->
               <div class="detail-main">
-                
-                <!-- Tabs Header -->
                 <div class="tabs-header">
                   <button class="tab-button active" data-tab="deskripsi">Deskripsi</button>
                   <button class="tab-button" data-tab="rundown">Rundown</button>
-                  <button class="tab-button" data-tab="modul">Materi / Roadmap</button>
+                  <button class="tab-button" data-tab="modul">Materi</button>
+                  <button class="tab-button" data-tab="pembicara">Pembicara</button>
                 </div>
 
-                <!-- Tab Content: Deskripsi -->
                 <div class="tab-content active" id="tab-deskripsi">
                   <h3>Tentang Acara Ini</h3>
                   <p class="description-text"><t t-esc="event.get('description')"/></p>
-                  
                   <t t-if="event.get('checklist')">
                     <h4>Apa yang akan Anda dapatkan?</h4>
                     <ul class="checklist">
-                      <t t-foreach="event.get('checklist')" t-as="item">
-                        <li>
-                          <i class="fa fa-check-circle"></i>
-                          <span><t t-esc="item"/></span>
-                        </li>
-                      </t>
+                      <t t-foreach="event.get('checklist')" t-as="item"><li><i class="fa fa-check-circle"></i> <t t-esc="item"/></li></t>
                     </ul>
                   </t>
                 </div>
 
-                <!-- Tab Content: Rundown -->
                 <div class="tab-content" id="tab-rundown">
                   <h3>Susunan Acara</h3>
-                  <t t-if="event.get('rundown')">
-                    <div class="timeline">
-                      <t t-foreach="event.get('rundown')" t-as="item">
-                        <div class="timeline-item">
-                          <div t-attf-class="timeline-dot #{'' if item_index else 'active'}"></div>
-                          <span class="timeline-time"><t t-esc="item.get('time')"/></span>
-                          <span class="timeline-activity"><t t-esc="item.get('activity')"/></span>
-                        </div>
-                      </t>
-                    </div>
-                  </t>
-                  <t t-else="">
-                    <p class="description-text">Rundown akan segera diumumkan.</p>
-                  </t>
+                  <div class="timeline">
+                    <t t-foreach="event.get('rundown')" t-as="item">
+                      <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <span class="timeline-time"><t t-esc="item.get('time')"/></span>
+                        <span class="timeline-activity"><t t-esc="item.get('activity')"/></span>
+                      </div>
+                    </t>
+                  </div>
                 </div>
 
-                <!-- Tab Content: Modul -->
                 <div class="tab-content" id="tab-modul">
-                  <h3>Materi &amp; Roadmap Belajar</h3>
-                  <t t-if="event.get('modules')">
-                    <div class="modules-grid">
-                      <t t-foreach="event.get('modules')" t-as="mod">
-                        <div class="module-card">
-                          <div class="module-header">
-                            <div class="module-number"><t t-esc="mod_index + 1"/></div>
-                            <div class="module-content">
-                              <h4><t t-esc="mod.get('title')"/></h4>
-                              <ul class="module-items">
-                                <t t-foreach="mod.get('items')" t-as="sub">
-                                  <li><t t-esc="sub"/></li>
-                                </t>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </t>
-                    </div>
-                  </t>
-                  <t t-else="">
-                    <p class="description-text">Materi akan segera diumumkan.</p>
-                  </t>
+                  <h3>Materi Belajar</h3>
+                  <div class="modules-grid">
+                    <t t-foreach="event.get('modules')" t-as="mod">
+                      <div class="module-card">
+                        <div class="module-number"><t t-esc="mod_index + 1"/></div>
+                        <h4><t t-esc="mod.get('title')"/></h4>
+                        <ul><t t-foreach="mod.get('items')" t-as="sub"><li><t t-esc="sub"/></li></t></ul>
+                      </div>
+                    </t>
+                  </div>
                 </div>
 
+                <div class="tab-content" id="tab-pembicara">
+                  <h3>Para Pembicara</h3>
+                  <div class="speaker-grid">
+                    <t t-foreach="event.get('speakers')" t-as="speaker">
+                      <div class="speaker-card">
+                        <div class="speaker-image"><img t-att-src="speaker.get('image')"/></div>
+                        <h4><t t-esc="speaker.get('name')"/></h4>
+                        <div class="speaker-role"><t t-esc="speaker.get('role')"/></div>
+                        <div class="speaker-company"><t t-esc="speaker.get('company')"/></div>
+                      </div>
+                    </t>
+                  </div>
+                </div>
               </div>
 
-              <!-- Right Column: Sidebar -->
               <div class="detail-sidebar">
                 <div class="sidebar-card">
-                  <h3>Informasi Penyelenggara</h3>
+                  <h3>Penyelenggara</h3>
                   <div class="organizer-info">
-                    <div class="organizer-avatar">
-                      <i class="fa fa-building"></i>
-                    </div>
+                    <div class="organizer-avatar"><i class="fa fa-user"></i></div>
                     <div class="organizer-details">
                       <p class="name"><t t-esc="event.get('organizer')"/></p>
-                      <p class="verified"><i class="fa fa-check-circle text-success me-1"></i>Verified Organizer</p>
+                      <p class="verified">Verified Organizer</p>
                     </div>
                   </div>
-                  
-                  <hr class="sidebar-divider"/>
-                  
-                  <h4>Butuh Bantuan?</h4>
-                  <p>
-                    Jika Anda memiliki pertanyaan mengenai event ini, silahkan hubungi kami.
-                  </p>
-                  <button class="contact-button">
-                    <i class="fa fa-phone me-2"></i>Hubungi Panitia
-                  </button>
+                  <button class="contact-button">Hubungi Panitia</button>
                 </div>
               </div>
-
             </div>
           </div>
         </t>
       </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const tabButtons = document.querySelectorAll('.tab-button');
+          const tabContents = document.querySelectorAll('.tab-content');
+
+          tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+              const target = button.getAttribute('data-tab');
+              tabButtons.forEach(btn => btn.classList.remove('active'));
+              tabContents.forEach(content => content.classList.remove('active'));
+              button.classList.add('active');
+              document.getElementById('tab-' + target).classList.add('active');
+            });
+          });
+        });
+      </script>
     </t>
   </template>
 </odoo>

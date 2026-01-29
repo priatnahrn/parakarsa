@@ -1,0 +1,460 @@
+.about-us-page {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.about-hero {
+  position: relative;
+  min-height: 320px;
+  background: linear-gradient(135deg, #1A4D2E 0%, #2D7A4D 100%); /* Matches Events header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+/* Optional pattern overlay like Events page */
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.about-hero-content h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.about-hero-content p {
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+/* Container */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+/* Section Common */
+section {
+  padding: 80px 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #1A4D2E;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background-color: #E69536;
+  border-radius: 2px;
+}
+
+.section-title.text-start::after,
+.section-title.text-left::after {
+  left: 0;
+  transform: none;
+}
+
+/* Sekilas Parakarsa */
+.about-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-intro-text p {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #4a4a4a;
+  margin-bottom: 1.5rem;
+}
+
+.about-intro-image {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.about-intro-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Visi & Misi */
+.vision-mission-section {
+  background-color: #f8fcf9;
+}
+
+.vision-card {
+  background: white;
+  padding: 3.5rem;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+  margin-bottom: 3rem;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.vision-card h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1A4D2E;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.mission-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  transition: transform 0.3s ease;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.mission-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px -5px rgba(0,0,0,0.08);
+}
+
+.mission-number {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #E69536;
+  opacity: 1;
+}
+
+.mission-item p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4a4a4a;
+  font-weight: 500;
+}
+
+/* Core Values */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+.value-card {
+  padding: 2.5rem;
+  border-radius: 24px;
+  background: white;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.value-card:hover {
+  border-color: #1A4D2E;
+  box-shadow: 0 20px 40px -5px rgba(26, 77, 46, 0.1);
+  transform: translateY(-5px);
+}
+
+.value-icon {
+  width: 60px;
+  height: 60px;
+  background: #f0f7f2;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1A4D2E;
+  margin-bottom: 1.5rem;
+}
+
+.value-card h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1A4D2E;
+}
+
+.value-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+/* History/Roadmap Section */
+.history-section {
+  background-color: #1A4D2E;
+  color: white;
+  overflow: hidden;
+}
+
+.history-section .section-title {
+  color: white;
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  width: 100%;
+}
+
+.history-section .section-title::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.roadmap-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  gap: 0;
+  padding-left: 20px;
+}
+
+/* Vertical Connecting Line */
+.roadmap-container::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  bottom: 0;
+  left: 55px; /* Aligns with center of 70px icon (35px) + 20px padding */
+  width: 2px;
+  background: #E69536;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.roadmap-item {
+  display: flex;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 50px;
+  gap: 30px;
+}
+
+.roadmap-item:last-child {
+  padding-bottom: 0;
+}
+
+.roadmap-icon-wrapper {
+  width: 70px;
+  height: 70px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  color: #1A4D2E;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border: none;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.roadmap-icon-wrapper svg {
+  width: 28px;
+  height: 28px;
+}
+
+.roadmap-item:hover .roadmap-icon-wrapper {
+  transform: scale(1.1);
+  background: #FCF0DE;
+  color: #1A4D2E;
+}
+
+.roadmap-content {
+  padding-top: 10px;
+  flex: 1;
+}
+
+.roadmap-year {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #E69536;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.roadmap-item h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.roadmap-item p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Team Section */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.team-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.team-image {
+  width: 100%;
+  height: 280px; /* Rectangular portrait */
+  background: #f0f7f2;
+}
+
+.team-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.team-info {
+  padding: 24px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.team-badge.founder {
+  background-color: #E6F4EA;
+  color: #1A4D2E;
+}
+
+.team-badge.advisor {
+  background-color: #E69536; /* Orange background */
+  color: white;
+}
+
+.team-badge.executive {
+  background-color: #FCF0DE; /* Cream */
+  color: #1A4D2E;
+}
+
+.team-card h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #1A4D2E;
+  line-height: 1.4;
+}
+
+
+.team-role {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .about-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  /* Roadmap Mobile */
+  .roadmap-container {
+    padding-left: 0;
+  }
+
+  .roadmap-container::before {
+    left: 35px; /* Adjust for smaller icon on mobile if needed, or keep standard */
+  }
+
+  .roadmap-item {
+    gap: 20px;
+    padding-bottom: 40px;
+  }
+
+  /* Roadmap Mobile adjustments if needed, but global styles handle it now */
+  .roadmap-container {
+     padding-left: 0; 
+  }
+
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 60px 0;
+  }
+  
+  .about-hero {
+    min-height: 280px; /* Even more compact on mobile */
+    padding: 40px 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+}

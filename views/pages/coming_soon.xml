@@ -1,0 +1,39 @@
+<odoo>
+  <template id="coming_soon_page">
+    <t t-call="website.layout">
+      <div class="about-us-page" style="font-family: 'Poppins', sans-serif;">
+        <!-- Reusing Hero Section structure from About Us for consistency -->
+        <section class="about-hero">
+          <div class="container">
+            <div class="about-hero-content">
+              <!-- Title and Subtitle passed from controller -->
+              <h1 t-esc="title"/>
+              <p t-esc="subtitle"/>
+            </div>
+          </div>
+        </section>
+
+        <!-- Empty State Content -->
+        <section class="py-5">
+          <div class="container text-center py-5">
+            <div class="mb-4">
+                <!-- Icon passed from controller -->
+                <i t-att-class="icon_class" style="font-size: 80px; color: #E69536; opacity: 0.8;"></i>
+            </div>
+            
+            <h2 class="mb-3 font-weight-bold" style="color: #1A4D2E;" t-esc="heading"/>
+            
+            <p class="lead text-muted mb-5 mx-auto" style="max-width: 600px; line-height: 1.6;">
+                <t t-esc="description"/>
+            </p>
+            
+            <a href="/" class="btn btn-primary px-5 py-3 rounded-pill font-weight-bold shadow-sm" 
+               style="background-color: #1A4D2E; border-color: #1A4D2E; color: #ffffff !important; transition: all 0.3s;">
+                <i class="fa fa-arrow-left mr-2"></i> Kembali ke Beranda
+            </a>
+          </div>
+        </section>
+      </div>
+    </t>
+  </template>
+</odoo>

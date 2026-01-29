@@ -1,0 +1,620 @@
+<odoo>
+  <template id="stories_page">
+    <t t-call="website.layout">
+      <!-- Embedded Styles (Converted from React/CSS) -->
+      <style>
+        /* Variables */
+        :root {
+          --stories-primary: #1A4D2E;
+          --stories-primary-dark: #143d24;
+          --stories-accent: #D4A373;
+          --stories-bg: #fdfdfd;
+          --stories-text: #1f2937;
+          --stories-text-muted: #6b7280;
+          --stories-card-bg: #ffffff;
+          --stories-border: #e2e8f0;
+          --stories-radius: 12px;
+          --stories-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        #stories-page {
+          font-family: 'Poppins', 'Inter', sans-serif;
+          color: var(--stories-text);
+          background: var(--stories-bg);
+          overflow-x: hidden;
+        }
+
+        .stories-container {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 24px;
+        }
+
+        /* Hero Section */
+        /* Hero Section (Adapted from Events Page) */
+        .stories-hero {
+          position: relative;
+          padding: 80px 0 60px;
+          background: linear-gradient(135deg, var(--stories-primary) 0%, var(--stories-primary-dark) 100%);
+          overflow: hidden;
+        }
+
+        .stories-hero::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+          opacity: 0.5;
+        }
+
+        .stories-hero-content {
+          position: relative;
+          z-index: 1;
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 24px;
+          text-align: center;
+        }
+
+        .stories-hero h1 {
+          font-size: 3rem;
+          font-weight: 800;
+          color: white;
+          margin-bottom: 16px;
+          letter-spacing: -0.02em;
+        }
+
+        .stories-hero p {
+          font-size: 1.125rem;
+          color: rgba(255, 255, 255, 0.85);
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        /* Featured Story */
+        .featured-story-section {
+          padding: 80px 0;
+          background: var(--stories-bg);
+        }
+
+        .featured-story-wrapper {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 60px;
+          align-items: center;
+        }
+
+        .featured-story-image {
+          position: relative;
+          border-radius: var(--stories-radius);
+          overflow: hidden;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .featured-story-image img {
+          width: 100%;
+          height: auto;
+          display: block;
+          transition: transform 0.6s ease;
+        }
+
+        .featured-story-image:hover img {
+          transform: scale(1.03);
+        }
+
+        .featured-badge {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          background: var(--stories-primary);
+          color: white;
+          padding: 8px 16px;
+          border-radius: 50px;
+          font-size: 0.8rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+
+        .story-meta {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 16px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: var(--stories-text-muted);
+        }
+
+        .story-category {
+          color: var(--stories-primary);
+        }
+
+        .featured-story-content h2 {
+          font-size: 2.5rem;
+          font-weight: 800;
+          margin-bottom: 20px;
+          color: var(--stories-primary-dark);
+          line-height: 1.2;
+        }
+
+        .story-excerpt {
+          font-size: 1.1rem;
+          line-height: 1.7;
+          color: #4b5563;
+          margin-bottom: 24px;
+        }
+
+        .story-quote {
+          border-left: 4px solid var(--stories-accent);
+          padding-left: 20px;
+          margin-bottom: 32px;
+          font-style: italic;
+          color: #374151;
+          font-size: 1.15rem;
+          background: #f9fafb;
+          padding: 20px;
+          border-radius: 0 8px 8px 0;
+        }
+
+        .read-more-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          background: var(--stories-primary);
+          color: white;
+          padding: 12px 28px;
+          border-radius: 50px;
+          font-weight: 600;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+        }
+
+        .read-more-btn:hover {
+          background: var(--stories-primary-dark);
+          transform: translateX(5px);
+          color: white;
+          text-decoration: none;
+        }
+
+        /* Stories Grid */
+        .stories-grid-section {
+          padding: 60px 0 100px;
+          background: #f3f4f6;
+        }
+
+        .section-header-custom {
+          margin-bottom: 40px;
+        }
+
+        .section-header-custom h3 {
+          font-size: 2rem;
+          font-weight: 700;
+          color: var(--stories-text);
+          margin-bottom: 8px;
+        }
+
+        .section-header-custom p {
+          color: var(--stories-text-muted);
+        }
+
+        .stories-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 30px;
+        }
+
+        .story-card {
+          background: white;
+          border-radius: var(--stories-radius);
+          overflow: hidden;
+          box-shadow: var(--stories-shadow);
+          transition: all 0.3s ease;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .story-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .story-card-image {
+          position: relative;
+          height: 220px;
+          overflow: hidden;
+        }
+
+        .story-card-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+        }
+
+        .story-card:hover .story-card-image img {
+          transform: scale(1.1);
+        }
+
+        .card-category {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          background: rgba(255,255,255,0.9);
+          padding: 4px 10px;
+          border-radius: 4px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: var(--stories-primary);
+          backdrop-filter: blur(4px);
+        }
+
+        .story-card-content {
+          padding: 24px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .story-card-content h4 {
+          font-size: 1.25rem;
+          font-weight: 700;
+          margin-bottom: 8px;
+          color: var(--stories-text);
+        }
+
+        .card-owner {
+          font-size: 0.85rem;
+          color: var(--stories-text-muted);
+          margin-bottom: 12px;
+          font-weight: 500;
+        }
+
+        .card-excerpt {
+          flex: 1;
+          font-size: 0.95rem;
+          color: #4b5563;
+          margin-bottom: 16px;
+          line-height: 1.5;
+        }
+
+        .card-link {
+          font-weight: 600;
+          color: var(--stories-primary);
+          text-decoration: none;
+          font-size: 0.9rem;
+          display: inline-block;
+          position: relative;
+        }
+
+        .card-link::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--stories-primary);
+          transition: width 0.3s ease;
+        }
+
+        .story-card:hover .card-link::after {
+          width: 100%;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+          padding: 100px 0;
+          background: white;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .quote-icon-header {
+          color: var(--stories-accent);
+          opacity: 0.3;
+          margin-bottom: 16px;
+          font-size: 48px;
+        }
+
+        .testimonials-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 30px;
+          margin-top: 50px;
+        }
+
+        .testimonial-card {
+          background: white;
+          border: 1px solid var(--stories-border);
+          padding: 32px;
+          border-radius: 16px;
+          transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+          transform: translateY(-10px);
+          box-shadow: var(--stories-shadow);
+        }
+
+        .testimonial-stars {
+          display: flex;
+          gap: 4px;
+          margin-bottom: 20px;
+        }
+        
+        .testimonial-stars i {
+           color: #F59E0B;
+        }
+
+        .testimonial-text {
+          font-size: 1.1rem;
+          line-height: 1.6;
+          color: #374151;
+          font-style: italic;
+          margin-bottom: 24px;
+        }
+
+        .testimonial-footer {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
+
+        .testimonial-avatar {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid var(--stories-accent);
+        }
+
+        .testimonial-info h5 {
+          font-size: 1rem;
+          font-weight: 700;
+          margin: 0;
+          color: var(--stories-text);
+        }
+
+        .testimonial-info span {
+          font-size: 0.85rem;
+          color: var(--stories-text-muted);
+        }
+
+        /* Gallery */
+        .gallery-section {
+          padding: 80px 0 100px;
+          background: #fdfdfd;
+        }
+
+        .gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-auto-rows: 250px;
+          gap: 16px;
+        }
+
+        .gallery-item {
+          position: relative;
+          border-radius: 12px;
+          overflow: hidden;
+          cursor: pointer;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+          transform: scale(1.05);
+        }
+
+        /* Grid Spans */
+        .item-1 { grid-column: span 2; grid-row: span 2; }
+        .item-2 { grid-column: span 1; }
+        .item-3 { grid-column: span 1; }
+        .item-4 { grid-column: span 2; }
+
+        .gallery-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.5);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          color: white;
+          gap: 10px;
+          backdrop-filter: blur(2px);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+          opacity: 1;
+        }
+
+        .gallery-overlay span {
+          font-weight: 600;
+          font-size: 1rem;
+          letter-spacing: 0.5px;
+          text-align: center;
+          padding: 0 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+          .featured-story-wrapper {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+          .stories-grid, .testimonials-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .gallery-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+          .item-1 { grid-column: span 2; grid-row: span 2; }
+          .item-4 { grid-column: span 1; }
+        }
+
+        @media (max-width: 768px) {
+          .stories-hero h1 {
+            font-size: 2.5rem;
+          }
+          .stories-grid, .testimonials-grid {
+            grid-template-columns: 1fr;
+          }
+          .gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 200px;
+          }
+          .item-1 { grid-column: span 2; grid-row: span 2; }
+          .item-2, .item-3, .item-4 { grid-column: span 1; }
+        }
+        
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+      </style>
+
+      <div id="stories-page">
+        
+        <!-- Hero Section -->
+        <section class="stories-hero">
+          <div class="stories-hero-content">
+            <h1>Jejak Langkah &amp; Kisah Inspiratif</h1>
+            <p>Merekam setiap momen berharga dan cerita kesuksesan para pelaku ekonomi kreatif bersama Parakarsa.</p>
+          </div>
+        </section>
+
+        <!-- Featured Story Section -->
+        <section class="featured-story-section">
+          <div class="stories-container">
+            <div class="featured-story-wrapper">
+              <div class="featured-story-image">
+                <img t-att-src="featured_story.get('image')" t-att-alt="featured_story.get('title')"/>
+                <div class="featured-badge">Featured Story</div>
+              </div>
+              <div class="featured-story-content">
+                <div class="story-meta">
+                  <span class="story-category"><t t-esc="featured_story.get('category')"/></span>
+                  <span class="story-separator">•</span>
+                  <span class="story-owner"><t t-esc="featured_story.get('owner')"/></span>
+                </div>
+                <h2><t t-esc="featured_story.get('title')"/></h2>
+                <p class="story-excerpt"><t t-esc="featured_story.get('content')"/></p>
+                <blockquote class="story-quote">
+                  "<t t-esc="featured_story.get('quote')"/>"
+                </blockquote>
+                <a href="#" class="read-more-btn">
+                  Baca Selengkapnya <i class="fa fa-arrow-right ms-2"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Stories Grid Section -->
+        <section class="stories-grid-section">
+          <div class="stories-container">
+            <div class="section-header-custom">
+              <h3>Cerita UMKM Lainnya</h3>
+              <p>Inspirasi dari mereka yang terus berkarya dan bertumbuh</p>
+            </div>
+            
+            <div class="stories-grid">
+              <t t-foreach="stories" t-as="story">
+                <div class="story-card">
+                  <div class="story-card-image">
+                    <img t-att-src="story.get('image')" t-att-alt="story.get('title')"/>
+                    <span class="card-category"><t t-esc="story.get('category')"/></span>
+                  </div>
+                  <div class="story-card-content">
+                    <h4><t t-esc="story.get('title')"/></h4>
+                    <p class="card-owner">Oleh: <t t-esc="story.get('owner')"/> - <t t-esc="story.get('business')"/></p>
+                    <p class="card-excerpt"><t t-esc="story.get('content')[:100]"/>...</p>
+                    <a href="#" class="card-link">Baca Cerita</a>
+                  </div>
+                </div>
+              </t>
+            </div>
+          </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section">
+          <div class="stories-container">
+            <div class="section-header-custom text-center">
+              <i class="fa fa-quote-left quote-icon-header"></i>
+              <h3>Apa Kata Mereka?</h3>
+              <p>Pengalaman nyata dari partner dan komunitas Parakarsa</p>
+            </div>
+
+            <div class="testimonials-grid">
+              <t t-foreach="testimonials" t-as="testi">
+                <div class="testimonial-card">
+                  <div class="testimonial-stars">
+                    <t t-foreach="range(5)" t-as="star">
+                      <i class="fa fa-star"></i>
+                    </t>
+                  </div>
+                  <p class="testimonial-text">"<t t-esc="testi.get('quote')"/>"</p>
+                  <div class="testimonial-footer">
+                    <img t-att-src="testi.get('image')" t-att-alt="testi.get('name')" class="testimonial-avatar"/>
+                    <div class="testimonial-info">
+                      <h5><t t-esc="testi.get('name')"/></h5>
+                      <span><t t-esc="testi.get('role')"/>, <t t-esc="testi.get('company')"/></span>
+                    </div>
+                  </div>
+                </div>
+              </t>
+            </div>
+          </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+          <div class="stories-container">
+            <div class="section-header-custom">
+              <h3>Dokumentasi Kegiatan</h3>
+              <p>Momen-momen seru yang telah kita lewati bersama</p>
+            </div>
+
+            <div class="gallery-grid">
+              <t t-foreach="gallery" t-as="item">
+                <div t-attf-class="gallery-item item-#{item.get('id')}">
+                  <img t-att-src="item.get('url')" t-att-alt="item.get('caption')"/>
+                  <div class="gallery-overlay">
+                    <i class="fa fa-camera fa-lg"></i>
+                    <span><t t-esc="item.get('caption')"/></span>
+                  </div>
+                </div>
+              </t>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </t>
+  </template>
+</odoo>

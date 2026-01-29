@@ -1,0 +1,130 @@
+<odoo>
+  <template id="about_us_page">
+    <t t-call="website.layout">
+      <div class="about-us-page">
+        
+        <!-- Hero Section -->
+        <section class="about-hero">
+          <div class="container">
+            <div class="about-hero-content">
+              <h1>TENTANG KAMI</h1>
+              <p>Penggerak Ekosistem Ekonomi Kreatif yang Kolaboratif &amp; Berkelanjutan</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sekilas Parakarsa -->
+        <section class="about-intro">
+          <div class="container">
+            <div class="about-intro-grid">
+              <div class="about-intro-text">
+                <h2 class="section-title text-start">Sekilas Parakarsa</h2>
+                <p>
+                  PT Parakarsa Kokreasi Semesta adalah perusahaan yang berfokus pada pendidikan, pendampingan, dan pengembangan ekosistem ekonomi kreatif. Berdiri sejak 2016, Parakarsa hadir untuk menjawab tantangan pelaku ekonomi kreatif yang menghadapi keterbatasan akses, jejaring, dan ekosistem yang terintegrasi.
+                </p>
+                <p>
+                  Melalui pendekatan bertahap Theatre of Education, Parakarsa menghubungkan berbagai pemangku kepentingan dalam ekosistem kreatif melalui kolaborasi Hexa-Helix. Parakarsa percaya bahwa pertumbuhan ekonomi kreatif yang berkelanjutan hanya dapat dicapai melalui kolaborasi, pembelajaran aplikatif, dan penguatan komunitas.
+                </p>
+                <p>
+                  Hingga saat ini, Parakarsa telah mendampingi lebih dari 5.100 pelaku ekonomi kreatif di berbagai wilayah Indonesia.
+                </p>
+              </div>
+              <div class="about-intro-image">
+                <img src="/parakarsa/static/src/img/about-image.jpg" alt="Parakarsa Team Work" style="min-height: 400px; background-color: #f0f0f0; object-fit: cover;"/>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Visi & Misi -->
+        <section class="vision-mission-section">
+          <div class="container">
+            <!-- Visi -->
+            <div class="vision-card">
+              <h3>Visi</h3>
+              <p class="text-xl italic text-gray-700">
+                "Menjadi penggerak ekosistem ekonomi kreatif yang kolaboratif, berkelanjutan, dan berdampak bagi pertumbuhan daerah dan nasional."
+              </p>
+            </div>
+
+            <!-- Misi -->
+            <div class="mt-12">
+              <h3 class="section-title text-start">Misi</h3>
+              <div class="mission-grid">
+                <t t-foreach="missions" t-as="misi">
+                  <div class="mission-item">
+                    <span class="mission-number"><t t-esc="misi_index + 1"/></span>
+                    <p t-esc="misi"/>
+                  </div>
+                </t>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Core Values -->
+        <section class="values-section">
+          <div class="container">
+            <h2 class="section-title">Core Values</h2>
+            <div class="values-grid">
+              <t t-foreach="core_values" t-as="value">
+                <div class="value-card">
+                  <div class="value-icon">
+                    <i t-att-class="value['icon']" style="font-size: 28px;"></i>
+                  </div>
+                  <h4 t-esc="value['title']"/>
+                  <p t-esc="value['desc']"/>
+                </div>
+              </t>
+            </div>
+          </div>
+        </section>
+
+        <!-- History Section -->
+        <section class="history-section">
+          <div class="container">
+            <h2 class="section-title">Perjalanan Singkat</h2>
+            <div class="roadmap-container">
+              <t t-foreach="history" t-as="item">
+                <div class="roadmap-item">
+                  <div class="roadmap-icon-wrapper">
+                    <div class="roadmap-icon">
+                      <i t-att-class="item['icon']" style="font-size: 28px;"></i>
+                    </div>
+                  </div>
+                  <div class="roadmap-content">
+                    <div class="roadmap-year" t-esc="item['year']"/>
+                    <h4 t-esc="item['title']"/>
+                    <p t-esc="item['desc']"/>
+                  </div>
+                </div>
+              </t>
+            </div>
+          </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+          <div class="container">
+            <h2 class="section-title text-center" style="text-align: center; margin-bottom: 4rem;">Team</h2>
+            <div class="team-grid">
+              <t t-foreach="team" t-as="member">
+                <div class="team-card">
+                  <div class="team-image">
+                    <img t-att-src="member['image']" t-att-alt="member['name']"/>
+                  </div>
+                  <div class="team-info">
+                    <span t-attf-class="team-badge #{member['badge'].lower()}" t-esc="member['badge']"/>
+                    <h4 t-esc="member['name']"/>
+                    <div class="team-role" t-esc="member['role']"/>
+                  </div>
+                </div>
+              </t>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </t>
+  </template>
+</odoo>
